@@ -126,8 +126,8 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Конфигурация сервера электронной почты
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'melnov.nikita@gmail.com'
-EMAIL_HOST_PASSWORD = 'obztjwcrzscgddik'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "melnov.nikita@gmail.com"
+EMAIL_HOST_PASSWORD = "obztjwcrzscgddik"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
