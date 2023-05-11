@@ -1,10 +1,10 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post, Comment
-from django.core.paginator import Paginator, EmptyPage,PageNotAnInteger
-from django.views.generic import ListView
-from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
+from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_POST
+from django.views.generic import ListView
+
+from .forms import CommentForm, EmailPostForm
+from .models import Post
 
 
 def post_share(request, post_id):
@@ -78,17 +78,16 @@ def post_detail(request, year, month, day, post):
     comments = post.comments.filter(active=True)
     # Форма для комментирования пользователями
     form = CommentForm()
-    return render(request,
-                'blog/post/detail.html',
-                {'post': post,
-                'comments': comments,
-                'form': form})
+    return render(
+        request,
+        "blog/post/detail.html",
+        {"post": post, "comments": comments, "form": form},
+    )
+
 
 @require_POST
 def post_comment(request, post_id):
-    post = get_object_or_404(Post,
-                            id=post_id,
-                            status=Post.Status.PUBLISHED)
+    post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
     comment = None
     # Комментарий был отправлен
     form = CommentForm(data=request.POST)
@@ -99,7 +98,8 @@ def post_comment(request, post_id):
         comment.post = post
         # Сохранить комментарий в базе данных
         comment.save()
-    return render(request, 'blog/post/comment.html',
-                            {'post': post,
-                            'form': form,
-                            'comment': comment})
+    return render(
+        request,
+        "blog/post/comment.html",
+        {"post": post, "form": form, "comment": comment},
+    )
