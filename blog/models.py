@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.utils import timezone
 from taggit.managers import TaggableManager
 
+
 class PublishedManager(models.Manager):
     """Конкретно-прикладной модельный менеджер"""
 
@@ -38,6 +39,7 @@ class Post(models.Model):
     objects = models.Manager()  # менеджер, применяемый по умолчанию
     published = PublishedManager()  # конкретно-прикладной менеджер
     tags = TaggableManager()  # менеджер для тегирования
+
     class Meta:
         ordering = ["-publish"]  # убывающий хронологический порядок
         indexes = [
